@@ -8,6 +8,16 @@ This repository contains reference implementations and examples of YAMO blocks d
 
 ## Examples
 
+### `yamo_specification_in_yamo.yamo`
+
+**Meta-circular specification!** The YAMO Protocol specification written as a YAMO block. Shows:
+- Self-describing protocol format
+- Complete YAMO v0.4 specification as structured data
+- Meta-programming approach to protocol definition
+- Comprehensive documentation in YAMO DSL
+
+**Use Case**: Protocol documentation, meta-circular definition, reference specification
+
 ### `skill-adapter.yamo`
 
 Demonstrates skill adaptation and learning patterns. Shows how an agent can:
