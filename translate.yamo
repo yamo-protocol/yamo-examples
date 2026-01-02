@@ -1,0 +1,475 @@
+📜 YAMO Protocol Translation Agent v0.3
+
+agent: YAMOTranslationInitiator;
+intent: initialize_document_to_yamo_translation;
+context:
+  agent_purpose;translate_documents_to_yamo_protocol_format;
+  target_version;yamo_v0.3;
+  input_types;skill_files;rfc_documents;workflow_descriptions;process_documentation;
+  output_format;yamo_v0.3_compliant;
+  core_keywords;agent;intent;context;constraints;output;handoff;log;priority;error;
+  meta_categories;hypothesis;assumption;confidence;disagreement;rationale;observation;
+  syntax_rules;semicolon_termination;block_delimiters;session_markers;
+constraints:
+  - understand_source_document;required;
+  - identify_workflow_structure;required;
+  - extract_agent_roles;required;
+  - infer_meta_reasoning;required;
+  - generate_valid_yamo;required;
+  - preserve_semantic_meaning;required;
+priority: critical;
+output: translation_initialization.json;
+log: translation_started;timestamp;2025-12-28T10:00Z;
+meta: hypothesis;Any structured workflow can be represented in YAMO format;
+meta: assumption;Source documents contain identifiable processes agents and decision points;
+meta: confidence;0.94;
+meta: rationale;YAMO's expressiveness enables encoding complex multi-agent workflows;
+handoff: DocumentAnalyzer;
+---
+agent: DocumentAnalyzer;
+intent: analyze_source_document_structure;
+context:
+  received_initialization;translation_initialization.json;
+  source_document;provided_by_user;
+  analysis_dimensions;document_type;structure;sections;workflow_indicators;process_steps;
+  workflow_indicators;phases;steps;stages;procedures;agents;roles;handoffs;
+  process_markers;then;next;after;following;subsequently;
+constraints:
+  - read_entire_document;required;
+  - identify_document_type;required;
+  - map_structural_elements;required;
+  - detect_workflow_patterns;required;
+  - note_explicit_and_implicit_processes;required;
+priority: critical;
+output: document_analysis.json;
+log: document_analyzed;timestamp;2025-12-28T10:05Z;
+meta: hypothesis;Document structure reveals underlying workflow organization;
+meta: assumption;Most documents follow recognizable organizational patterns;
+meta: confidence;0.89;
+meta: rationale;Structural analysis identifies sections that map to YAMO blocks;
+meta: observation;Phase markers and sequential language indicate agent handoffs;
+handoff: WorkflowExtractor;
+---
+agent: WorkflowExtractor;
+intent: extract_workflow_from_document;
+context:
+  received_analysis;document_analysis.json;
+  extraction_targets;process_flows;decision_points;sequential_steps;parallel_activities;dependencies;
+  workflow_components;initiating_events;intermediate_steps;terminal_conditions;
+  flow_patterns;linear;branching;iterative;parallel;conditional;
+constraints:
+  - identify_workflow_start;required;
+  - map_all_process_steps;required;
+  - detect_decision_points;required;
+  - identify_handoff_points;required;
+  - determine_workflow_end;required;
+  - preserve_flow_logic;required;
+priority: critical;
+output: extracted_workflow.json;
+log: workflow_extracted;timestamp;2025-12-28T10:10Z;
+meta: hypothesis;Workflow extraction reveals agent interaction patterns;
+meta: assumption;Documents describe workflows through sequential or hierarchical organization;
+meta: confidence;0.91;
+meta: rationale;Process flows map directly to agent handoff chains in YAMO;
+handoff: AgentIdentifier;
+---
+agent: AgentIdentifier;
+intent: identify_distinct_agents_and_roles;
+context:
+  received_workflow;extracted_workflow.json;
+  agent_indicators;roles;actors;systems;components;phases;stages;
+  identification_criteria;distinct_responsibilities;unique_capabilities;separate_concerns;
+  naming_convention;descriptive;action_oriented;clear_purpose;
+  agent_types;initiators;processors;validators;coordinators;finalizers;
+constraints:
+  - identify_all_distinct_agents;required;
+  - ensure_clear_agent_boundaries;required;
+  - assign_descriptive_names;required;
+  - avoid_agent_overlap;required;
+  - maintain_single_responsibility;required;
+priority: critical;
+output: identified_agents.json;
+log: agents_identified;timestamp;2025-12-28T10:15Z;
+meta: hypothesis;Each workflow step can be attributed to a distinct agent;
+meta: assumption;Agent boundaries align with responsibility transitions;
+meta: confidence;0.87;
+meta: rationale;Clear agent identification enables proper YAMO block structure;
+meta: observation;Phases in source often map directly to agent names;
+handoff: IntentExtractor;
+---
+agent: IntentExtractor;
+intent: extract_intent_for_each_agent;
+context:
+  received_agents;identified_agents.json;
+  received_workflow;extracted_workflow.json;
+  intent_definition;purpose_or_goal_of_agents_action;
+  intent_characteristics;action_oriented;clear;concise;verb_based;
+  intent_patterns;initialize;create;analyze;validate;transform;generate;review;
+constraints:
+  - extract_intent_for_every_agent;required;
+  - use_action_verbs;required;
+  - keep_concise;required;
+  - ensure_clarity;required;
+  - align_with_agent_responsibility;required;
+priority: high;
+output: extracted_intents.json;
+log: intents_extracted;timestamp;2025-12-28T10:20Z;
+meta: hypothesis;Agent purposes can be expressed as clear action-oriented intents;
+meta: assumption;Each agent has a primary goal identifiable from context;
+meta: confidence;0.92;
+meta: rationale;Intent clarity essential for YAMO workflow comprehension;
+handoff: ContextMapper;
+---
+agent: ContextMapper;
+intent: map_context_information_for_each_agent;
+context:
+  received_agents;identified_agents.json;
+  received_workflow;extracted_workflow.json;
+  context_definition;background_information_assumptions_inputs;
+  context_types;received_from_previous_agent;environmental_data;configuration;requirements;resources;
+  context_format;key_value_pairs;semicolon_terminated;
+  handoff_pattern;received_X_from_previous_agent;
+constraints:
+  - map_context_for_every_agent;required;
+  - identify_inputs_from_previous_agents;required;
+  - extract_environmental_context;required;
+  - identify_configuration_data;required;
+  - format_as_key_value_pairs;required;
+  - semicolon_terminate_all_values;required;
+priority: high;
+output: mapped_contexts.json;
+log: contexts_mapped;timestamp;2025-12-28T10:25Z;
+meta: hypothesis;Context captures all information needed for agent operation;
+meta: assumption;Previous agent outputs become next agent inputs;
+meta: confidence;0.90;
+meta: rationale;Context tracking enables workflow continuity and traceability;
+handoff: ConstraintIdentifier;
+---
+agent: ConstraintIdentifier;
+intent: identify_constraints_and_requirements;
+context:
+  received_agents;identified_agents.json;
+  received_workflow;extracted_workflow.json;
+  constraint_definition;rules_or_conditions_that_must_be_enforced;
+  constraint_types;required_actions;prohibited_actions;quality_standards;validation_rules;dependencies;
+  constraint_indicators;must;required;mandatory;should;cannot;prohibited;
+  constraint_format;hyphen_prefixed_list;semicolon_terminated;
+constraints:
+  - identify_all_constraints;required;
+  - categorize_by_type;required;
+  - express_clearly;required;
+  - use_constraint_indicators;required;
+  - format_with_hyphens_and_semicolons;required;
+priority: high;
+output: identified_constraints.json;
+log: constraints_identified;timestamp;2025-12-28T10:30Z;
+meta: hypothesis;Constraints capture critical rules governing agent behavior;
+meta: assumption;Source documents express constraints through requirement language;
+meta: confidence;0.88;
+meta: rationale;Explicit constraints ensure workflow compliance and quality;
+handoff: OutputIdentifier;
+---
+agent: OutputIdentifier;
+intent: identify_outputs_for_each_agent;
+context:
+  received_agents;identified_agents.json;
+  received_workflow;extracted_workflow.json;
+  output_definition;expected_result_or_artifact;
+  output_types;data_files;reports;configurations;decisions;processed_data;
+  output_format;descriptive_filename_or_artifact_name;
+  output_patterns;json;xml;md;pdf;png;txt;report;
+constraints:
+  - identify_output_for_every_agent;required;
+  - use_descriptive_names;required;
+  - indicate_format_where_applicable;required;
+  - ensure_outputs_become_inputs;workflow_continuity;
+priority: high;
+output: identified_outputs.json;
+log: outputs_identified;timestamp;2025-12-28T10:35Z;
+meta: hypothesis;Each agent produces identifiable artifacts or results;
+meta: assumption;Agent outputs connect to subsequent agent inputs;
+meta: confidence;0.93;
+meta: rationale;Output tracking creates audit trail through workflow;
+handoff: HandoffMapper;
+---
+agent: HandoffMapper;
+intent: map_handoff_chain_between_agents;
+context:
+  received_agents;identified_agents.json;
+  received_workflow;extracted_workflow.json;
+  handoff_definition;next_agent_or_entity_to_receive_control;
+  handoff_patterns;linear_chain;branching;conditional;parallel;terminal;
+  terminal_handoffs;End;User;Human;
+constraints:
+  - map_handoff_for_every_agent;required;
+  - ensure_workflow_continuity;required;
+  - identify_terminal_handoffs;required;
+  - preserve_branching_logic;required;
+  - validate_handoff_chain;required;
+priority: critical;
+output: handoff_chain.json;
+log: handoffs_mapped;timestamp;2025-12-28T10:40Z;
+meta: hypothesis;Handoff mapping reveals complete workflow topology;
+meta: assumption;Every agent either hands off to another agent or terminates;
+meta: confidence;0.95;
+meta: rationale;Handoff chain defines execution order and dependencies;
+handoff: PriorityAssigner;
+---
+agent: PriorityAssigner;
+intent: assign_priority_levels_to_agents;
+context:
+  received_agents;identified_agents.json;
+  received_workflow;extracted_workflow.json;
+  priority_levels;low;medium;high;critical;
+  assignment_criteria;criticality;impact;dependencies;risk;
+  critical_indicators;required;mandatory;essential;foundational;
+  high_indicators;important;significant;key;
+  medium_indicators;standard;normal;regular;
+  low_indicators;optional;supplementary;minor;
+constraints:
+  - assign_priority_to_every_agent;required;
+  - use_only_defined_levels;low;medium;high;critical;
+  - base_on_workflow_criticality;required;
+  - consider_dependencies;required;
+priority: medium;
+output: assigned_priorities.json;
+log: priorities_assigned;timestamp;2025-12-28T10:45Z;
+meta: hypothesis;Priority assignment reflects workflow criticality structure;
+meta: assumption;Critical path agents receive higher priority levels;
+meta: confidence;0.84;
+meta: rationale;Priority levels guide execution scheduling and resource allocation;
+handoff: MetaReasoningInferrer;
+---
+agent: MetaReasoningInferrer;
+intent: infer_meta_reasoning_traces_for_agents;
+context:
+  received_agents;identified_agents.json;
+  received_workflow;extracted_workflow.json;
+  received_contexts;mapped_contexts.json;
+  meta_categories;hypothesis;assumption;confidence;disagreement;rationale;observation;
+  inference_sources;stated_reasoning;implicit_logic;decision_rationale;design_philosophy;
+  confidence_scale;0.0_to_1.0;numeric;
+constraints:
+  - infer_meta_for_every_agent;required;
+  - use_canonical_categories;hypothesis;assumption;confidence;disagreement;rationale;observation;
+  - include_hypothesis;predictions_about_outcomes;
+  - include_assumption;conditions_believed_true;
+  - include_confidence;numeric_0_to_1;
+  - include_rationale;decision_explanations;
+  - add_observations;where_relevant;
+  - add_disagreements;where_applicable;
+priority: critical;
+output: inferred_meta_reasoning.json;
+log: meta_reasoning_inferred;timestamp;2025-12-28T10:50Z;
+meta: hypothesis;Meta reasoning can be inferred from explicit and implicit content;
+meta: assumption;Documents contain rationale even if not explicitly structured;
+meta: confidence;0.86;
+meta: rationale;Meta traces transform workflow into transparent reasoning language;
+meta: observation;v0.3 meta categories enable systematic thought capture;
+handoff: LogGenerator;
+---
+agent: LogGenerator;
+intent: generate_log_entries_for_audit_trail;
+context:
+  received_agents;identified_agents.json;
+  received_workflow;extracted_workflow.json;
+  log_format;action;timestamp;additional_data;
+  timestamp_format;ISO_8601;YYYY-MM-DDTHH:MM:SSZ;
+  log_purpose;audit_trail;reproducibility;debugging;
+constraints:
+  - generate_log_for_every_agent;required;
+  - include_descriptive_action;required;
+  - include_timestamp;required;
+  - use_iso_8601_format;required;
+  - ensure_chronological_order;required;
+priority: medium;
+output: generated_logs.json;
+log: logs_generated;timestamp;2025-12-28T10:55Z;
+meta: hypothesis;Log entries create comprehensive audit trail;
+meta: assumption;Timestamps can be generated based on workflow sequence;
+meta: confidence;0.91;
+meta: rationale;Audit trail enables workflow reproducibility and debugging;
+handoff: YAMOSyntaxGenerator;
+---
+agent: YAMOSyntaxGenerator;
+intent: generate_yamo_v0.3_syntax;
+context:
+  received_agents;identified_agents.json;
+  received_intents;extracted_intents.json;
+  received_contexts;mapped_contexts.json;
+  received_constraints;identified_constraints.json;
+  received_outputs;identified_outputs.json;
+  received_handoffs;handoff_chain.json;
+  received_priorities;assigned_priorities.json;
+  received_meta;inferred_meta_reasoning.json;
+  received_logs;generated_logs.json;
+  yamo_structure;agent;intent;context;constraints;priority;output;log;meta;handoff;
+  syntax_rules;semicolon_termination;block_delimiter_triple_dash;session_end_triple_dot;
+constraints:
+  - follow_yamo_v0.3_specification;required;
+  - semicolon_terminate_all_values;required;
+  - format_context_as_key_value_pairs;required;
+  - format_constraints_as_hyphen_list;required;
+  - include_all_meta_categories;required;
+  - use_triple_dash_block_delimiter;required;
+  - use_triple_dot_session_terminator;required;
+  - preserve_agent_order;required;
+  - maintain_handoff_chain;required;
+priority: critical;
+output: yamo_syntax.txt;
+log: yamo_syntax_generated;timestamp;2025-12-28T11:00Z;
+meta: hypothesis;All extracted information can be formatted as valid YAMO v0.3;
+meta: assumption;YAMO syntax rules strictly enforced produce valid output;
+meta: confidence;0.97;
+meta: rationale;Syntax generation core transformation from analysis to YAMO;
+handoff: ValidationChecker;
+---
+agent: ValidationChecker;
+intent: validate_yamo_compliance;
+context:
+  received_yamo;yamo_syntax.txt;
+  validation_rules;v0.3_specification;
+  required_fields;agent;intent;output;handoff;
+  optional_fields;context;constraints;log;priority;error;
+  meta_validation;must_follow_reserved_categories;confidence_numeric;disagreement_references_agent;
+  syntax_validation;semicolon_termination;block_delimiters;session_markers;
+constraints:
+  - validate_all_blocks_have_required_fields;required;
+  - verify_semicolon_termination;required;
+  - check_meta_category_compliance;required;
+  - validate_confidence_values;0_to_1_numeric;
+  - verify_block_delimiters;triple_dash;
+  - verify_session_terminator;triple_dot;
+  - check_handoff_chain_integrity;required;
+priority: critical;
+output: validation_report.json;
+log: validation_complete;timestamp;2025-12-28T11:05Z;
+meta: hypothesis;Validation ensures YAMO specification compliance;
+meta: assumption;Generated YAMO contains all required elements;
+meta: confidence;0.94;
+meta: rationale;Validation prevents malformed YAMO from being output;
+handoff: QualityEnhancer;
+---
+agent: QualityEnhancer;
+intent: enhance_translation_quality;
+context:
+  received_yamo;yamo_syntax.txt;
+  received_validation;validation_report.json;
+  enhancement_areas;meta_reasoning_depth;context_completeness;constraint_clarity;naming_precision;
+  quality_criteria;human_readability;semantic_accuracy;completeness;consistency;
+constraints:
+  - improve_meta_reasoning_specificity;where_possible;
+  - enhance_context_descriptions;where_needed;
+  - clarify_constraint_language;where_ambiguous;
+  - refine_agent_naming;where_unclear;
+  - preserve_semantic_meaning;required;
+  - maintain_yamo_compliance;required;
+priority: high;
+output: enhanced_yamo.txt;
+log: quality_enhanced;timestamp;2025-12-28T11:10Z;
+meta: hypothesis;Enhancement improves human readability and agent comprehension;
+meta: assumption;Generated YAMO can be refined without losing semantic meaning;
+meta: confidence;0.88;
+meta: rationale;Quality enhancement transforms valid YAMO into excellent YAMO;
+handoff: DocumentationGenerator;
+---
+agent: DocumentationGenerator;
+intent: generate_translation_documentation;
+context:
+  received_enhanced_yamo;enhanced_yamo.txt;
+  received_analysis;document_analysis.json;
+  documentation_components;translation_summary;agent_count;workflow_overview;key_transformations;
+  output_format;markdown;
+constraints:
+  - summarize_translation_process;required;
+  - count_agents_generated;required;
+  - describe_workflow_topology;required;
+  - highlight_key_transformations;required;
+  - explain_inferred_meta_reasoning;required;
+priority: medium;
+output: translation_documentation.md;
+log: documentation_generated;timestamp;2025-12-28T11:15Z;
+meta: hypothesis;Documentation helps users understand translation decisions;
+meta: assumption;Users benefit from explanation of source-to-YAMO mapping;
+meta: confidence;0.85;
+meta: rationale;Documentation provides context for generated YAMO;
+handoff: OutputWriter;
+---
+agent: OutputWriter;
+intent: write_final_yamo_to_file;
+context:
+  received_yamo;enhanced_yamo.txt;
+  received_documentation;translation_documentation.md;
+  output_filename;yamo.txt;
+  output_location;./;
+  file_format;plain_text;utf8_encoding;
+constraints:
+  - write_to_yamo_txt;required;
+  - use_utf8_encoding;required;
+  - preserve_formatting;required;
+  - include_yamo_content_only;required;
+  - overwrite_if_exists;true;
+priority: critical;
+output: ./yamo.txt;
+log: file_written;timestamp;2025-12-28T11:20Z;
+meta: hypothesis;Final output provides complete YAMO translation;
+meta: assumption;File system accessible for writing;
+meta: confidence;0.98;
+meta: rationale;Output completion delivers translation to user;
+handoff: TranslationReporter;
+---
+agent: TranslationReporter;
+intent: report_translation_completion;
+context:
+  received_output;./yamo.txt;
+  received_documentation;translation_documentation.md;
+  translation_metrics;agent_count;block_count;meta_trace_count;handoff_chain_length;
+  completion_status;success;
+constraints:
+  - report_completion_status;required;
+  - provide_translation_metrics;required;
+  - indicate_output_location;required;
+  - summarize_key_insights;required;
+priority: high;
+output: completion_report.json;
+log: translation_reported;timestamp;2025-12-28T11:25Z;
+meta: hypothesis;Completion report provides user with actionable summary;
+meta: assumption;User needs confirmation and metrics for successful translation;
+meta: confidence;0.92;
+meta: rationale;Reporting closes translation loop with user feedback;
+handoff: User;
+---
+agent: User;
+intent: review_and_use_yamo_translation;
+context:
+  received_report;completion_report.json;
+  yamo_output;./yamo.txt;
+  documentation;translation_documentation.md;
+  usage_options;review_translation;implement_workflow;refine_agents;create_parser;
+constraints:
+  - review_generated_yamo;recommended;
+  - verify_semantic_accuracy;recommended;
+  - provide_feedback;optional;
+priority: medium;
+output: user_feedback.log;
+log: user_review_started;timestamp;2025-12-28T11:30Z;
+meta: hypothesis;User can leverage YAMO translation for workflow implementation;
+meta: assumption;Generated YAMO accurately represents source document workflow;
+meta: confidence;0.90;
+meta: rationale;YAMO format enables transparent auditable reproducible workflows;
+meta: observation;Translation agent itself demonstrates YAMO expressiveness;
+handoff: End;
+...
+
+✨ Meta-Circular Insight: This YAMO document describes a translation agent that converts documents to YAMO format. The agent itself is expressed in YAMO v0.3, demonstrating the protocol's ability to encode its own creation process. The workflow shows 19 specialized agents that analyze, extract, infer, generate, validate, and output YAMO translations - proving that YAMO is both the subject and the medium of this specification.
+
+🎯 Translation Agent Capabilities:
+- Analyzes any structured document (skills, RFCs, workflows, processes)
+- Identifies agents, intents, contexts, constraints, outputs, handoffs
+- Infers meta reasoning traces (hypothesis, assumption, confidence, rationale)
+- Generates YAMO v0.3 compliant syntax
+- Validates specification compliance
+- Enhances quality for human readability
+- Outputs to yamo.txt with documentation
+
+📋 Usage: This agent can be used as a template for building YAMO translation tools, or as a specification for implementing automated document-to-YAMO converters.

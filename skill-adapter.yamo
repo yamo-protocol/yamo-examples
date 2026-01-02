@@ -1,0 +1,59 @@
+agent: ShellExecutionWrapper;
+intent: execute_shell_commands_with_safety_rails;
+context:
+  wrapped_skill;run_shell_command;
+  skill_source;external_mcp_tool;
+  safety_level;high_security;
+  allowed_directories;/src;/tmp;
+  forbidden_patterns;rm -rf /;mkfs;dd;
+constraints:
+  - verify_command_safety;required;
+  - enforce_directory_scope;required;
+  - block_destructive_commands;required;
+  - require_reasoning_trace;required;
+priority: critical;
+output: execution_log.json;
+log: command_attempted;timestamp;{TIMESTAMP};
+meta: hypothesis;Raw shell access is dangerous without cognitive governance;
+meta: assumption;YAMO constraints can prevent catastrophic errors before execution;
+meta: confidence;0.99;
+meta: rationale;Wrapping the tool in YAMO separates the 'capability' (Bash) from the 'policy' (Safety);
+handoff: CommandValidator;
+---
+agent: CommandValidator;
+intent: validate_command_against_policy;
+context:
+  input_command;{COMMAND_STRING};
+  policy_reference;ShellExecutionWrapper_constraints;
+  risk_assessment;heuristic_analysis;
+constraints:
+  - check_against_forbidden_patterns;required;
+  - verify_path_resolution;required;
+  - output_decision;allow_or_deny;
+priority: critical;
+output: validation_result.json;
+log: validation_performed;timestamp;{TIMESTAMP};
+meta: hypothesis;Static analysis of command strings reduces runtime risk;
+meta: assumption;Most accidental damage comes from typos or context errors;
+meta: confidence;0.95;
+meta: rationale;Validator agent acts as a pre-flight checklist for the skill;
+handoff: SkillExecutor;
+---
+agent: SkillExecutor;
+intent: invoke_external_skill_implementation;
+context:
+  validation_status;approved;
+  target_tool;yamo_run_shell_command;
+  execution_mode;sandboxed;
+constraints:
+  - execute_only_if_validated;required;
+  - capture_stdout_and_stderr;required;
+  - measure_execution_time;required;
+priority: high;
+output: execution_result.json;
+log: skill_invoked;timestamp;{TIMESTAMP};
+meta: hypothesis;Successful validation implies safe execution;
+meta: assumption;External tool handles the actual OS-level interaction;
+meta: confidence;0.90;
+meta: rationale;YAMO orchestrates the 'When' and 'Why', MCP handles the 'How';
+handoff: AuditLogger;
